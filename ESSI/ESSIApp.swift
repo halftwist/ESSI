@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ESSIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SnackListView()
+                .modelContainer(for: Snack.self)   // for:modelType The model type defining the schema used to create the model container.
+
         }
     }
+    // will allow us to find where our simulator data is saved:  used by DB Browser app
+    init() {
+        print(URL.applicationSupportDirectory.path(percentEncoded: false))
+    }
+
 }
