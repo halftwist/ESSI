@@ -16,7 +16,7 @@ struct SnackListView: View {
     @Environment(\.modelContext) var modelContext  // The SwiftData model context that will be used for queries and other model operations within this environment. This is for holding temporary data before saving
 
     var body: some View {
-        NavigationStack {
+        NavigationStack {  
             List {
                 ForEach(snacks) { snack in
                     

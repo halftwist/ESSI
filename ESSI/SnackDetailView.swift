@@ -11,7 +11,18 @@ import SwiftData
 struct SnackDetailView: View {
     
     enum ComfortLevel: Int, CaseIterable {
-        case doesTheJob = 1, solid, cravingSatisfyer, emergencyComfort
+        case doesTheJob = 1, solid, cravingSatisfyer, gourmet, emergencyComfort
+        
+        var label: String {
+            switch self {
+            case .doesTheJob: return "1 - ✅ Does the job"
+            case .solid: return "2 - 👍 Solid"
+            case .cravingSatisfyer: return "3 - 😊 Craving Met"
+            case .gourmet: return "4 - Gourmet"
+            case .emergencyComfort: return "5 - Emergency"
+            }
+        }
+               
     }
     
     @State var snack: Snack // single Swift Data object passed from SnackListView
@@ -28,21 +39,6 @@ struct SnackDetailView: View {
 
     
     var body: some View {
-//        List {
-//            TextField("snack name", text: $name)
-//                .font(.largeTitle)
-//                .textFieldStyle(.roundedBorder)
-//                .padding(.vertical)
-//                .listRowSeparator(.hidden)
-// 
-//            TextField("Qty:", text: \($onHand))
-//                .font(.largeTitle)
-//                .textFieldStyle(.roundedBorder)
-//                .padding(.vertical)
-//                .listRowSeparator(.hidden)
-//
-//
-//        }
         VStack(alignment:.leading) {
             TextField("snack name", text: $name)
                 .font(.largeTitle)
@@ -60,10 +56,19 @@ struct SnackDetailView: View {
             HStack {
                 Text("Comfort Level:")
                     .bold()
+                
+                
+//                Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: /*@START_MENU_TOKEN@*/Text("Picker")/*@END_MENU_TOKEN@*/) {
+//                    /*@START_MENU_TOKEN@*/Text("1").tag(1)/*@END_MENU_TOKEN@*/
+//                    /*@START_MENU_TOKEN@*/Text("2").tag(2)/*@END_MENU_TOKEN@*/
+//                }
+
                 Picker("", selection: $selectedComfortLevel) {
                     ForEach(ComfortLevel.allCases, id: \.self) { comfortlevel in
-                        Text("\(comfortlevel)")
-                            .tag(comfortlevel.rawValue)
+                        Text(comfortlevel.label)
+                            .tag(comfortlevel.rawValue)  // the description associated with this enum
+//                        Text("\(comfortlevel)")
+//                            .tag(comfortlevel.label)
                     }
 
 //                    ForEach(ComfortLevel.allCases, id: \.self ) { level in
